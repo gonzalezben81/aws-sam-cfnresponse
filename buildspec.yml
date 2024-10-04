@@ -15,7 +15,7 @@ phases:
       - echo "Installing the specified libraries"
       - ls -la
       - pip3 install pandas cfnresponse -t .
-      - pip3 install ./requirements.txt -t .      
+      - pip3 install ../requirements.txt -t .      
       - zip -r gonzo-cfnresponse.zip . || { echo "Zip command failed"; exit 1; }
       - ls -la
       - echo "Running build..."
