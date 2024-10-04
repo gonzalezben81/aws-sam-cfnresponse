@@ -12,7 +12,8 @@ phases:
     commands:
       - echo "Zipping the layer content..."
       - cd layer
-      - zip -r ../lambda-layer.zip python/
+      - zip -r ../lambda-layer.zip python/ || { echo "Zip command failed"; exit 1; }
+      - ls -la
       - echo "Running build..."
       - sam build --template-file template.yaml
       - ls -la
