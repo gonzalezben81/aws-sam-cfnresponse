@@ -23,5 +23,7 @@ phases:
       - yes | sam deploy      # Zip the contents of the `python` folder for the Lambda layer
 
 artifacts:
+  type: zip
   files:
-    - lambda-layer.zip  # Output artifact for the Lambda layer
+    - '**/*' 
+  base-directory: '.aws-sam/build'
