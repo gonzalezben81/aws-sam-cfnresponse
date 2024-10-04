@@ -11,8 +11,7 @@ phases:
     commands:
       - echo "Zipping the layer content..."
       - cd python-layer
-      - pip install urllib3==1.26.15 -t .
-      - pip3 install cfnresponse -t .
+      - pip3 install pandas -t .
       - zip -r gonzo-cfnresponse.zip || { echo "Zip command failed"; exit 1; }
       - ls -la
       - echo "Running build..."
