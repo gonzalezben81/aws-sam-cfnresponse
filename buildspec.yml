@@ -6,18 +6,19 @@ phases:
       python: 3.9  # Specify the Python version you are using
     commands:
       - echo "Installing dependencies..."
+      - mkdir python-layer
       - pip install -r layer/requirements.txt -t layer/python  # Install dependencies into the `python` folder inside the `layer` directory
 
   build:
     commands:
       - echo "Zipping the layer content..."
-      - cd layer
-      - zip -r ../lambda-layer.zip python/ || { echo "Zip command failed"; exit 1; }
+      - cd python-layer
+      - pip3 install cfnresponse -t .
+      - zip -r gonzo-cfnresponse.zip || { echo "Zip command failed"; exit 1; }
       - ls -la
       - echo "Running build..."
       - sam build --template-file template.yaml
       - ls -la
-      - ls -la python
       - echo "Running deploy..."
       - sam package --output-template-file packaged.yaml --resolve-s3 --template-file template.yaml
       - yes | sam deploy      # Zip the contents of the `python` folder for the Lambda layer
