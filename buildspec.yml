@@ -6,7 +6,7 @@ phases:
       python: 3.9  # Specify the Python version you are using
     commands:
       - echo "Installing dependencies..."
-      - mkdir python-layer
+      #- mkdir python-layer
   build:
     commands:
       - echo "Zipping the layer content..."
