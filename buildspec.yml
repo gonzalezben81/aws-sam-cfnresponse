@@ -6,6 +6,7 @@ phases:
       python: 3.9  # Specify the Python version you are using
     commands:
       - echo "Installing dependencies..."
+      - pip3 install aws-sam-cli
       #- mkdir python-layer
   build:
     commands:
@@ -13,15 +14,17 @@ phases:
       - cd python-layer
       - echo "Installing the specified libraries"
       - pip3 install pandas cfnresponse -t .
+      - pip3 install requirements.txt -t .      
       - zip -r gonzo-cfnresponse.zip . || { echo "Zip command failed"; exit 1; }
       - ls -la
       - echo "Running build..."
+      - echo "Utilize the template.yaml file that is in the github root directory"
       - sam build --template-file ../template.yaml
       - ls -la
       - echo "Running deploy..."
       ##Since we are in the python-layer folder the --template-file should reflect where you have your templatey.yaml
       ##or template.yml file
-      - sam package --output-template-file packaged.yaml --resolve-s3 --template-file template.yaml
+      - sam package --output-template-file packaged.yaml --resolve-s3 -t ../template.yaml
       - ls -la
       - pwd
       - sam deploy --resolve-s3 --stack-name gonzo-cfnresponse --capabilities CAPABILITY_IAM
