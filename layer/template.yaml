@@ -12,7 +12,7 @@ Resources:
       CompatibleRuntimes:
         - python3.9
         - python3.10
-        - python 3.11
+        - python3.11
     Metadata:
       BuildMethod: python3.10        
 
