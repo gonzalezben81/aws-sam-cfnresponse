@@ -19,7 +19,8 @@ phases:
       - ls -la
       - echo "Running deploy..."
       - sam package --output-template-file packaged.yaml --resolve-s3 --template-file template.yaml
-      - ls -la
+      - ls -l ./python-layer/gonzo-cfnresponse.zip
+
       - pwd
       - sam deploy --resolve-s3 --stack-name gonzo-cfnresponse --capabilities CAPABILITY_IAM
 
