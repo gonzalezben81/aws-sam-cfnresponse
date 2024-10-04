@@ -21,7 +21,7 @@ phases:
       ##Since we are in the python-layer folder the --template-file should reflect where you have your templatey.yaml
       ##or template.yml file
       - sam package --output-template-file packaged.yaml --resolve-s3 --template-file template.yaml
-      - ls -l ./python-layer/gonzo-cfnresponse.zip
+      - ls -la
       - pwd
       - sam deploy --resolve-s3 --stack-name gonzo-cfnresponse --capabilities CAPABILITY_IAM
 
