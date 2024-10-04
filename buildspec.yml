@@ -12,7 +12,7 @@ phases:
       - echo "Zipping the layer content..."
       - cd python-layer
       - pip3 install pandas -t .
-      - zip -r gonzo-cfnresponse.zip || { echo "Zip command failed"; exit 1; }
+      - zip -r gonzo-cfnresponse.zip . || { echo "Zip command failed"; exit 1; }
       - ls -la
       - echo "Running build..."
       - sam build --template-file template.yaml
@@ -21,8 +21,8 @@ phases:
       - sam package --output-template-file packaged.yaml --resolve-s3 --template-file template.yaml
       - yes | sam deploy      # Zip the contents of the `python` folder for the Lambda layer
 
-artifacts:
-  type: zip
-  files:
-    - '**/*' 
-  base-directory: '.aws-sam/build'
+# artifacts:
+#   type: zip
+#   files:
+#     - '**/*' 
+#   base-directory: '.aws-sam/build'
