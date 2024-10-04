@@ -14,7 +14,7 @@ phases:
       - cd python-layer
       - echo "Installing the specified libraries"
       - pip3 install pandas cfnresponse -t .
-      - pip3 install requirements.txt -t .      
+      - pip3 install ./python-layer/requirements.txt -t .      
       - zip -r gonzo-cfnresponse.zip . || { echo "Zip command failed"; exit 1; }
       - ls -la
       - echo "Running build..."
