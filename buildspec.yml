@@ -3,27 +3,21 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.x  # Specify your Python version
+      python: 3.9  # Specify the Python version you are using
     commands:
-      - echo "Installing dependencies"
-      - pip install -r requirements.txt -t ./layer/python  # Ensure this is correct for your structure
-
-  pre_build:
-    commands:
-      - echo "Listing contents of the layer directory before zipping..."
-      - ls -la layer  # Check what is in the layer directory
-      - echo "Zipping the layer content..."
-      - cd layer
-      - zip -r ../lambda-layer.zip python/  # Zip the contents of the 'python' directory and place it at the root
-      - echo "Listing contents of the parent directory after zipping..."
-      - ls -la ../  # Check that lambda-layer.zip exists in the parent directory
+      - echo "Installing dependencies..."
+      - pip install -r layer/requirements.txt -t layer/python  # Install dependencies into the `python` folder inside the `layer` directory
 
   build:
     commands:
-      - echo "Packaging the SAM application"
-      - ls -la  # List files in the current directory to check for the presence of lambda-layer.zip
+      - echo "Zipping the layer content..."
+      - zip -r ../lambda-layer.zip python/
+      - echo "Running build..."
+      - sam build --template-file template.yaml
+      - echo "Running deploy..."
       - sam package --output-template-file packaged.yaml --resolve-s3 --template-file template.yaml
+      - yes | sam deploy      # Zip the contents of the `python` folder for the Lambda layer
 
 artifacts:
   files:
-    - packaged.yaml
+    - lambda-layer.zip  # Output artifact for the Lambda layer
