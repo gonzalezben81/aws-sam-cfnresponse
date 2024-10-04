@@ -16,6 +16,7 @@ phases:
       - echo "Running build..."
       - sam build --template-file template.yaml
       - ls -la
+      - ls -la python
       - echo "Running deploy..."
       - sam package --output-template-file packaged.yaml --resolve-s3 --template-file template.yaml
       - yes | sam deploy      # Zip the contents of the `python` folder for the Lambda layer
