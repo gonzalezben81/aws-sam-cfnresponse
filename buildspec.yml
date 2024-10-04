@@ -13,6 +13,7 @@ phases:
       - echo "Zipping the layer content..."
       - cd python-layer
       - echo "Installing the specified libraries"
+      - ls -la
       - pip3 install pandas cfnresponse -t .
       - pip3 install ./requirements.txt -t .      
       - zip -r gonzo-cfnresponse.zip . || { echo "Zip command failed"; exit 1; }
