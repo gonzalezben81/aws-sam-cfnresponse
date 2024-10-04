@@ -15,7 +15,7 @@ phases:
       - zip -r gonzo-cfnresponse.zip . || { echo "Zip command failed"; exit 1; }
       - ls -la
       - echo "Running build..."
-      - sam build --template-file ../template.yaml
+      - sam build
       - ls -la
       - echo "Running deploy..."
       - sam package --output-template-file packaged.yaml --resolve-s3 --template-file template.yaml
