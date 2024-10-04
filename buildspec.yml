@@ -18,7 +18,7 @@ phases:
       - sam build --template-file ../template.yaml
       - ls -la
       - echo "Running deploy..."
-      - sam package --output-template-file packaged.yaml --resolve-s3 --template-file template.yaml
+      - sam package --output-template-file packaged.yaml --resolve-s3 --template-file template.yaml --stack-name gonzo-cfnresponse --capabilities CAPABILITY_IAM
       - yes | sam deploy      # Zip the contents of the `python` folder for the Lambda layer
 
 # artifacts:
