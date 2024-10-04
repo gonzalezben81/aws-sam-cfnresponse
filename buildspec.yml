@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.10  # Specify the Python version you are using
+      python: 3.9  # Specify the Python version you are using
     commands:
       - echo "Installing dependencies..."
       #- mkdir python-layer
@@ -11,6 +11,7 @@ phases:
     commands:
       - echo "Zipping the layer content..."
       - cd python-layer
+      - echo "Installing the specified libraries"
       - pip3 install pandas cfnresponse -t .
       - zip -r gonzo-cfnresponse.zip . || { echo "Zip command failed"; exit 1; }
       - ls -la
