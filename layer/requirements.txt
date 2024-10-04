@@ -1,0 +1,3 @@
+cfnresponse
+pandas
+requests
