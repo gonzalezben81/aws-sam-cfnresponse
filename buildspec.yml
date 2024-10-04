@@ -11,10 +11,11 @@ phases:
   build:
     commands:
       - echo "Zipping the layer content..."
+      ###Change to the directory that your requirements.txt is in github
       - cd python-layer
       - echo "Installing the specified libraries"
       - ls -la
-      - pip3 install pandas cfnresponse -t .
+      #- pip3 install pandas cfnresponse -t .
       - pip3 install -r requirements.txt -t .      
       - zip -r gonzo-cfnresponse.zip . || { echo "Zip command failed"; exit 1; }
       - ls -la
