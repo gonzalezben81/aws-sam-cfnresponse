@@ -2,7 +2,7 @@
 
 ## aws-sam-cfnresponse
 
-This repo utilizes the Serverless Application Model (SAM) to create a lambda layer via codebuild. The codebuild project utilizes a buildspec.yml to specify what packages to put into the lambda layer. After SAM builds the lambda layer it is then pushed to an s3 bucket and uploaded the layer to the lambda layers. Each subsequent build will automatically increment the lambda layer version for you. Logs for the codebuild project will be created in CloudWatch with the following naming convention: aws/codebuild/<codebuild-project-name>
+This repo utilizes the Serverless Application Model (SAM) to create a lambda layer via codebuild. The codebuild project utilizes a buildspec.yml to specify what packages to put into the lambda layer. After SAM builds the lambda layer it is then pushed to an s3 bucket and uploaded the layer to the lambda layers. Each subsequent build will automatically increment the lambda layer version for you. Logs for the codebuild project will be created in CloudWatch with the following naming convention: aws/codebuild/\<codebuild-project-name\>
 
 ### buildspec.yml
 
