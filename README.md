@@ -8,6 +8,10 @@ This repo utilizes the Serverless Application Model (SAM) to create a lambda lay
 
 The buildspec.yml builds the lambda layer via AWS Codebuild. The currenty runtime utilized python3.9 and you can specify the runtime version you would like via `runtime-versions` in the buildspec.yml. Currently there is no s3 bucket specified in the builspec.yml. The AWS sam build, package, and deploy commands help with building the zip file for the lambda layer.
 
+```Note
+sam deploy now implicitly performs the functionality of sam package. You can use the sam deploy command directly to package and deploy your application.
+```
+
 ### requirements.txt
 
 The requirements.txt is where you will specify what python packages to install in the lambda layer. There is a size limit of 250MB for a lambda layer and function unzipped. Therefore only install the necessary layers
