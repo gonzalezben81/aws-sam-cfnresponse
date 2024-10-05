@@ -1,0 +1,79 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: "This template creates a CodeBuild Job and the IAM Role for building a Lambda Layer."
+Resources:
+  CodeBuildRole:
+    Type: AWS::IAM::Role
+    Properties:
+      ###Creates the IAM Role Name from the AWS::StackName
+      RoleName: !Ref AWS::StackName
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - codebuild.amazonaws.com
+            Action: sts:AssumeRole
+      Path: /
+      Policies:
+        - PolicyName: CodeBuildS3SAMPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              # S3 Access for CodeBuild to upload/download artifacts
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:ListBucket
+                Resource:
+                  - arn:aws:s3:::your-bucket-name  # Specify your S3 bucket
+                  - arn:aws:s3:::your-bucket-name/*  # All objects in the bucket
+
+              # CloudFormation (SAM) permissions for CodeBuild to deploy using SAM/CloudFormation
+              - Effect: Allow
+                Action:
+                  - cloudformation:*
+                  - lambda:*
+                  - iam:*
+                  - s3:*
+                Resource: '*'  # You can narrow this down to specific stacks if needed
+
+              # CodeBuild permissions to start and manage builds
+              - Effect: Allow
+                Action:
+                  - codebuild:*
+                Resource: '*'
+  
+              # CloudWatch Logs permission to allow CodeBuild to log build results
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: 'arn:aws:logs:*:*:*'
+  Project:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Name: !Ref AWS::StackName
+      Description: CodeBuild project for the cfnresponse module for use in Lambda functions
+      ServiceRole: !GetAtt CodeBuildRole.Arn
+      Artifacts:
+        Type: no_artifacts
+      BadgeEnabled: true
+      Environment:
+        Type: LINUX_CONTAINER
+        ComputeType: BUILD_GENERAL1_SMALL
+        Image: aws/codebuild/standard:5.0
+      Source:
+        Type: GITHUB
+        Location: https://github.com/gonzalezben81/aws-sam-cfnresponse.git  # Replace with your GitHub repo URL
+        GitCloneDepth: 1
+        ReportBuildStatus: true  # Enable build status reports on GitHub
+      TimeoutInMinutes: 60
+
+
+Outputs:
+  CodeBuildRoleArn:
+    Description: "IAM Role ARN for CodeBuild"
+    Value: !GetAtt CodeBuildRole.Arn

@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.11  # Specify the Python version you are using
+      python: 3.10  # Specify the Python version you are using
     commands:
       - echo "Installing dependencies..."
       - pip3 install aws-sam-cli
@@ -22,19 +22,13 @@ phases:
       - echo "Running build..."
       - echo "Utilize the template.yaml file that is in the github root directory"
       ##Since we are in the python-layer folder the --template-file should reflect where you have your template.yaml
-      ##or template.yml file -- currently this points to the root directory e.g. ../      
+      ##or template.yml file -- currently this points to the root directory in the github repo e.g. ../      
       - sam build --template-file ../template.yaml
       - ls -la
       - echo "Running deploy..."
       ##Since we are in the python-layer folder the --template-file should reflect where you have your template.yaml
       ##or template.yml file -- currently this points to the root directory e.g. ../
-      - sam package --output-template-file packaged.yaml --resolve-s3 -t ../template.yaml
+      #- sam package --output-template-file packaged.yaml --resolve-s3 -t ../template.yaml
       - ls -la
       - pwd
       - sam deploy --resolve-s3 --stack-name gonzo-cfnresponse --capabilities CAPABILITY_IAM
-
-# artifacts:
-#   type: zip
-#   files:
-#     - '**/*' 
-#   base-directory: '.aws-sam/build'
