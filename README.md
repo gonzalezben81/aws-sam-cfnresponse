@@ -20,13 +20,12 @@ The codebuild.yml creates the IAM Role and the Codebuild project. The IAM Role n
 
 ```bash
 aws-sam-cfnresponse/
-├── .gitignore
+├── python-layer/
+    ├── requirements.txt
 ├── README.md
 ├── buildspec.yml
 ├── codebuild.yml
 ├── template.yaml
-├── python-layer/
-    ├── requirements.txt
 ```
 ##### References:
 
@@ -39,4 +38,5 @@ aws-sam-cfnresponse/
 + sam build: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-build.html
 + sam package: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-package.html
 + sam deploy: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-deploy.html
++ CodeBuild Badges: https://docs.aws.amazon.com/codebuild/latest/userguide/publish-badges.html
 
