@@ -10,6 +10,8 @@ The buildspec.yml builds the lambda layer via AWS Codebuild. The currenty runtim
 
 ```Note
 sam deploy now implicitly performs the functionality of sam package. You can use the sam deploy command directly to package and deploy your application.
+
+Reference: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-package.html
 ```
 
 ### requirements.txt
